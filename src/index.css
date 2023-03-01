@@ -1,8 +1,4 @@
-.App {
-  text-align: center;
-}
-
-.App nav {
+nav {
   display: flex;
   justify-content: space-between;
   background-color: #333333;
@@ -17,10 +13,26 @@
   margin-right: 1rem;
 }
 
+.create-creature{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: large;
+  overflow-wrap: normal;
+  max-width: 200px;
+  height: 100%;
+  background-color: lightgrey;
+}
+
+
 .Card {
   display: flex;
-  width: 350px;
-  height: 420px;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 175px;
+  height: 200px;
   border: solid;
   border-radius: 15px;
 }
@@ -46,20 +58,6 @@
   border-radius: 10px;
 }
 
-.Converter {
-  text-align: left;
-  margin: 1rem 4rem;
-}
-
-.Converter label {
-  display: block;
-  margin-bottom: 1rem;
-}
-
-.Converter input {
-  display: block;
-  margin-top: 0.5rem;
-}
 
 .power-toughness{
   display: inline;

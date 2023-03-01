@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Board from "./Board";
+import Board from "../Board";
 
 const CreateCreature = () => {
 
@@ -15,12 +15,9 @@ const CreateCreature = () => {
 
     const handleSubmit = (event: React.MouseEvent) => {
         event.preventDefault();
+        console.log(creatureName, power, toughness)
 
-        setNewCreature({ name: creatureName, power: power, toughness: toughness, id: 0})
-        console.log(newCreature )
-
-
-        const clearCreatureState = () => {
+        /*const clearCreatureState = () => {
             const blankCreature = {
                 name: "",
                 power: 0,
@@ -31,47 +28,51 @@ const CreateCreature = () => {
             setCreatureName('');
             setPower(0);
             setToughness(0);         
-        }
+        } */
        
         fetch('http://localhost:8000/creatures',
         {
             method: 'Post',
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(newCreature)
+            body: JSON.stringify({creatureName, power, toughness})
         }).then(() => {
-            console.log('new creature added', newCreature);
-            clearCreatureState;
+            console.log('new creature added', creatureName, power, toughness);
+            //clearCreatureState;
         })
              
     }
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setCreatureName(event.target.value)
+        console.log(creatureName)
       }
 
-      const addPower = (event: React.MouseEvent) => {
+      const addPower = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
         setPower(power + 1);
+        console.log( power );
     }
-    const subtractPower = (event: React.MouseEvent) => {
-        if(power === 0) {
+    const subtractPower = (event: React.MouseEvent<HTMLButtonElement>) => {
+        if(power ===  0) {
             return;
         }
         setPower(power - 1);
+        console.log( power );
     }  
 
-    const addToughness = (event: React.MouseEvent) => {
+    const addToughness = (event: React.MouseEvent<HTMLButtonElement>) => {
         setToughness(toughness + 1);
+        console.log( toughness );
     }
-    const subtractToughness = (event: React.MouseEvent) => {
+    const subtractToughness = (event: React.MouseEvent<HTMLButtonElement>) => {
         if(toughness === 0) {
             return;
         }
         setToughness(toughness - 1);
+        console.log( toughness );
     }
 
     
-
-
     return (
     <div className="create-creature">
                 <label>Creature:</label>
@@ -83,20 +84,20 @@ const CreateCreature = () => {
                     onChange={ onChange }
                      />
     <div className="power-toughness">
-        <p>
-        <button className="power-button" onClick={ subtractPower }>-</button>
-        <button className="power-button" onClick={ addPower }>+</button>
+        <p>          
+        <button className="power-button" value={ power } onClick={ subtractPower }>-</button>
+        <button className="power-button" value={ power } onClick={ addPower }>+</button>
         { power } / 
         { toughness }
-        <button className="toughness-button" onClick={ subtractToughness } >-</button>
-        <button className="toughness-button" onClick={ addToughness }>+</button>
+        <button className="toughness-button" value = { toughness } onClick={ subtractToughness } >-</button>
+        <button className="toughness-button" value = { toughness } onClick={ addToughness }>+</button>
         </p>        
     </div>
-    <button  onClick={ handleSubmit }>Add Creature</button>
+    <br/>
+    <button type="submit" onClick={ handleSubmit }>Add Creature</button>
     <br/>
     <h2>Preview: { creatureName } </h2>
     <h4>{ power } / { toughness } </h4>
-    <Board />
   </div>
 
 );
